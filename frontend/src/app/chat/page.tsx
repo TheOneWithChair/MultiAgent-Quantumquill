@@ -117,7 +117,7 @@ const ChatPage = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">Select Task</label>
                 <select
-                  value={selectedTask}
+                  value={selectedTask ?? ""}
                   onChange={(e) => setSelectedTask(e.target.value as Task)}
                   className="w-full bg-gray-800 border border-violet-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-violet-500"
                 >
