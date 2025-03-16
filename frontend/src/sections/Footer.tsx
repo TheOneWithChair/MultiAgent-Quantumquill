@@ -14,16 +14,12 @@ export const navItems = [
     href: "#features",
   },
   {
-    name: "Pricing",
-    href: "#pricing",
+    name: "How it Works",
+    href: "#how-it-works",
   },
   {
-    name: "Testimonials",
-    href: "#testimonials",
-  },
-  {
-    name: "Login",
-    href: "#",
+    name: "Get Started",
+    href: "/chat",
   },
 ];
 
@@ -49,7 +45,7 @@ const Footer = () => {
     <footer className="border-t border-[var(--color-border)]">
       <div className="container py-8">
         <div className="flex flex-col lg:flex-row lg:justify-between items-center gap-8">
-          <h2 className="font-extrabold text-2xl">Sphereal.ai</h2>
+          <h2 className="font-extrabold text-2xl">QuantumQuill</h2>
           <nav className="flex flex-col md:flex-row md:gap-16 gap-8 items-center">
             {navItems.map(({ name, href }) => (
               <Link
@@ -78,7 +74,7 @@ const Footer = () => {
             ))}
           </div>
           <p className="text-gray-500 text-sm">
-            &copy; 2024 Sphereal AI, all rights reserved.
+            &copy; 2024 QuantumQuill Research Assistant, all rights reserved.
           </p>
         </div>
       </div>

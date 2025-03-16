@@ -10,7 +10,7 @@ import {
 import { ReactNode, useState, useEffect } from "react";
 
 export type ButtonProps = {
-  variant?: "primary" | "secondary" | "tertiary";
+  variant?: "primary" | "secondary" | "tertiary" | "outline";
   children: ReactNode;
   block?: boolean;
 } & HTMLMotionProps<"button">;

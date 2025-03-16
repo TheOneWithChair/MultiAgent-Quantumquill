@@ -1,49 +1,51 @@
 "use client";
 import React, { useState } from "react";
-import AshwinSantiago from "@/assets/images/ashwin-santiago.jpg";
-import AlecWhitten from "@/assets/images/alec-whitten.jpg";
-import ReneWells from "@/assets/images/rene-wells.jpg";
-import MollieHall from "@/assets/images/mollie-hall.jpg";
-import SectionBorder from "@/components/SectionBorder";
-import SectionContent from "@/components/SectionContent";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import SectionBorder from "@/components/SectionBorder";
+import SectionContent from "@/components/SectionContent";
+
+import AshwinSantiago from "@/assets/images/ashwin-santiago.jpg";
+import AlecWhitten from "@/assets/images/alec-whitten.jpg";
+import ReneWells from "@/assets/images/rene-wells.jpg";
+import MollieHall from "@/assets/images/mollie-hall.jpg";
 
 export const testimonials = [
   {
     quote:
-      "Sphereal has completely transformed the way we collaborate. The AI chatbot's ability to automate tasks and provide insightful recommendations has saved us hours each week. It's now an indispensable part of our workflow.",
+      "QuantumQuill has redefined how I conduct research. The AI-driven summarization ensures I extract the most relevant insights without wasting time.",
     name: "Ashwin Santiago",
-    title: "Operations Manager",
+    title: "AI Research Scientist",
     image: AshwinSantiago,
   },
   {
     quote:
-      "Sphereal integrates effortlessly with our existing tools, and the AI chatbot feels like a natural extension of our team. The responses are impressively accurate, and it's always learning from our interactions.",
+      "The refinement tool in QuantumQuill is beyond impressive. It enhances my content with clarity and conciseness while keeping my original intent intact.",
     name: "Alec Whitten",
-    title: "Lead Developer",
+    title: "Technical Writer",
     image: AlecWhitten,
   },
   {
     quote:
-      "Sphereal's AI has elevated our customer service to a whole new level. Its real-time responses and personalized recommendations help us address client needs faster than ever. I can't imagine our support team without it.",
+      "I rely on QuantumQuill daily to validate and enhance articles. Its AI-backed validation system ensures my sources are credible and my content is factually solid.",
     name: "Rene Wells",
-    title: "Customer Success Manager",
+    title: "Senior Editor",
     image: ReneWells,
   },
   {
     quote:
-      "I've never seen a tool like Sphereal. It's intuitive, responsive, and has helped us streamline projects that would normally take days. The AI capabilities are unmatched in terms of accuracy and speed.",
+      "As a content strategist, I use QuantumQuill to refine drafts and generate high-quality summaries. It makes content creation seamless and efficient.",
     name: "Mollie Hall",
-    title: "Product Designer",
+    title: "Content Strategist",
     image: MollieHall,
   },
 ];
 
 const Testimonials = () => {
   const [testimonialIndex, setTestimonialIndex] = useState(0);
+
   return (
     <section id="testimonials">
       <div className="container">
@@ -53,7 +55,7 @@ const Testimonials = () => {
               <motion.div className="border-gradient rounded-3xl px-6 md:px-10 py-16 relative flex flex-col md:flex-row gap-12 md:mx-10 lg:px-16 lg:py-24 lg:mx-20">
                 <FontAwesomeIcon
                   icon={faQuoteLeft}
-                  className="absolute size-20 text-violet-400 top-0 left-6 md:left-10 lg:left-16 -translate-y-1/2"
+                  className="absolute size-20 text-blue-400 top-0 left-6 md:left-10 lg:left-16 -translate-y-1/2"
                 />
                 <AnimatePresence mode="wait" initial={false}>
                   {testimonials.map(({ quote, name, title, image }, i) =>
@@ -91,7 +93,7 @@ const Testimonials = () => {
                   {testimonials.map((testimonial, i) => (
                     <div
                       key={testimonial.name}
-                      className="size-6 relative isolate inline-flex items-center justify-center"
+                      className="size-6 relative isolate inline-flex items-center justify-center cursor-pointer"
                       onClick={() => setTestimonialIndex(i)}
                     >
                       {testimonialIndex === i && (

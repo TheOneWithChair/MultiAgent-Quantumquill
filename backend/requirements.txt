@@ -1,6 +1,0 @@
-openai
-streamlit
-pandas
-loguru
-python-dotenv
-groq

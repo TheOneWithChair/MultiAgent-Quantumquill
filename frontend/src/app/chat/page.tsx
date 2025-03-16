@@ -33,7 +33,7 @@ const ChatPage = () => {
 
   const testApiConnection = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/test');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/test`);
       if (!response.ok) {
         const data = await response.json();
         throw new Error(data.error || 'Failed to connect to API');
@@ -53,7 +53,7 @@ const ChatPage = () => {
     setError(null);
     
     try {
-      const response = await fetch('http://localhost:3001/api/task', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/task`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -96,118 +96,87 @@ const ChatPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-8">
-      <div className="max-w-6xl mx-auto">
-        {/* Back Button */}
-        <button
-          onClick={handleBack}
-          className="flex items-center gap-2 text-violet-400 hover:text-violet-300 transition-colors mb-6"
-        >
-          <IoArrowBack className="text-xl" />
-          <span>Back to Home</span>
-        </button>
-
-        <h1 className="text-4xl font-bold mb-8 text-center bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
-          AI Assistant Dashboard
-        </h1>
-
-        {/* Error Message */}
-        {error && (
-          <div className="mb-8 p-4 bg-red-500/10 border border-red-500 rounded-lg text-red-400">
-            <p>{error}</p>
+    <div className="min-h-screen bg-gray-950 text-white relative overflow-hidden">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_farthest-corner,var(--color-violet-900)_0%,var(--color-gray-950)_100%)] opacity-40" />
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center gap-4 mb-8">
+            <button
+              onClick={handleBack}
+              className="flex items-center gap-2 text-violet-400 hover:text-violet-300 transition-colors"
+            >
+              <IoArrowBack className="w-5 h-5" />
+              <span>Back to Home</span>
+            </button>
           </div>
-        )}
+          
+          <div className="bg-gray-900/50 backdrop-blur-xl border border-violet-500/20 rounded-xl p-6 shadow-xl">
+            <h1 className="text-3xl font-bold text-violet-400 mb-6">Research Analysis</h1>
+            
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Select Task</label>
+                <select
+                  value={selectedTask}
+                  onChange={(e) => setSelectedTask(e.target.value as Task)}
+                  className="w-full bg-gray-800 border border-violet-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-violet-500"
+                >
+                  <option value="">Choose a task...</option>
+                  <option value="Summarize Medical Text">Summarize Medical Text</option>
+                  <option value="Write and Refine Research Article">Write Research Article</option>
+                  <option value="Sanitize Medical Data (PHI)">Sanitize Medical Data (PHI)</option>
+                </select>
+              </div>
 
-        {/* Task Selection */}
-        <div className="mb-8">
-          <h2 className="text-2xl mb-4">Select Task</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {tasks.map((task) => (
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Input Text</label>
+                <textarea
+                  value={inputText}
+                  onChange={(e) => setInputText(e.target.value)}
+                  placeholder="Enter your text here..."
+                  className="w-full h-40 bg-gray-800 border border-violet-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-violet-500"
+                />
+              </div>
+
               <button
-                key={task}
-                onClick={() => setSelectedTask(task)}
-                className={`p-4 rounded-lg border transition-all ${
-                  selectedTask === task
-                    ? "border-violet-400 bg-violet-400/20"
-                    : "border-gray-700 hover:border-violet-400/50"
-                }`}
+                onClick={handleTaskSubmit}
+                disabled={!selectedTask || !inputText || isLoading}
+                className="w-full bg-violet-600 hover:bg-violet-700 disabled:bg-violet-900 disabled:cursor-not-allowed text-white font-medium py-2 px-4 rounded-lg transition-colors"
               >
-                {task}
+                {isLoading ? 'Processing...' : 'Analyze'}
               </button>
-            ))}
+            </div>
+
+            {error && (
+              <div className="mt-6 p-4 bg-red-900/50 border border-red-500/50 rounded-lg text-red-200">
+                {error}
+              </div>
+            )}
+
+            {results && (
+              <div className="mt-8 space-y-6">
+                <div className="p-4 bg-gray-800/50 border border-violet-500/20 rounded-lg">
+                  <h3 className="text-lg font-medium text-violet-400 mb-2">Analysis Results</h3>
+                  <p className="text-gray-300 whitespace-pre-wrap">{results.mainResult}</p>
+                </div>
+
+                {results.validationResult && (
+                  <div className="p-4 bg-gray-800/50 border border-violet-500/20 rounded-lg">
+                    <h3 className="text-lg font-medium text-violet-400 mb-2">Validation Results</h3>
+                    <p className="text-gray-300 whitespace-pre-wrap">{results.validationResult}</p>
+                  </div>
+                )}
+
+                {results.refinementResult && (
+                  <div className="p-4 bg-gray-800/50 border border-violet-500/20 rounded-lg">
+                    <h3 className="text-lg font-medium text-violet-400 mb-2">Refined Results</h3>
+                    <p className="text-gray-300 whitespace-pre-wrap">{results.refinementResult}</p>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
-
-        {/* Input Area */}
-        {selectedTask && (
-          <div className="mb-8">
-            <h2 className="text-2xl mb-4">
-              {selectedTask === "Summarize Medical Text"
-                ? "Enter medical text to summarize"
-                : selectedTask === "Write and Refine Research Article"
-                ? "Enter topic and outline"
-                : "Enter medical data to sanitize"}
-            </h2>
-            <textarea
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-              className="w-full h-48 p-4 rounded-lg bg-gray-800 border border-gray-700 focus:border-violet-400 focus:outline-none"
-              placeholder="Enter your text here..."
-            />
-            <Button
-              variant="secondary"
-              className="mt-4"
-              onClick={handleTaskSubmit}
-              disabled={isLoading}
-            >
-              {isLoading ? "Processing..." : "Submit"}
-            </Button>
-          </div>
-        )}
-
-        {/* Results Area */}
-        {isLoading && (
-          <div className="text-center py-8">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-violet-400 mx-auto mb-4"></div>
-            <p className="text-violet-400">Processing your request...</p>
-          </div>
-        )}
-
-        {results && (
-          <div className="mt-8">
-            <h2 className="text-2xl mb-6">Results</h2>
-            
-            {/* Main Result */}
-            <ResultSection 
-              title={
-                selectedTask === "Summarize Medical Text" ? "Initial Summary" :
-                selectedTask === "Write and Refine Research Article" ? "Initial Draft" :
-                "Initial Sanitized Data"
-              } 
-              content={results.mainResult} 
-            />
-
-            {/* Refinement Result */}
-            <ResultSection 
-              title={
-                selectedTask === "Summarize Medical Text" ? "Refined Summary" :
-                selectedTask === "Write and Refine Research Article" ? "Refined Article" :
-                "Refined Sanitized Data"
-              } 
-              content={results.refinementResult} 
-            />
-
-            {/* Validation Result */}
-            <ResultSection 
-              title={
-                selectedTask === "Summarize Medical Text" ? "Summary Validation" :
-                selectedTask === "Write and Refine Research Article" ? "Peer Review" :
-                "HIPAA Compliance Check"
-              } 
-              content={results.validationResult} 
-            />
-          </div>
-        )}
       </div>
     </div>
   );

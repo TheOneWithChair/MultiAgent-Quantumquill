@@ -8,8 +8,10 @@ import Planet from "@/components/Planet";
 import { motion, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { useMousePosition } from "./Hero";
+import { useRouter } from "next/navigation";
 
 const CallToAction = () => {
+  const router = useRouter();
   const { xProgress, yProgress } = useMousePosition();
   const sectionRef = useRef<HTMLElement>(null);
   const springX = useSpring(xProgress);
@@ -20,6 +22,11 @@ const CallToAction = () => {
   const TranslateMediumY = useTransform(springY, [0, 1], ["-50%", "50%"]);
   const TranslateSmallX = useTransform(springX, [0, 1], ["-200%", "200%"]);
   const TranslateSmallY = useTransform(springY, [0, 1], ["-200%", "200%"]);
+
+  const handleGetStarted = () => {
+    router.push('/chat');
+  };
+
   return (
     <section ref={sectionRef}>
       <div className="container">
@@ -118,9 +125,9 @@ const CallToAction = () => {
               </motion.div>
             </div>
             <h2 className="text-gray-200 font-semibold text-3xl md:text-4xl lg:text-5xl text-center leading-tight max-w-3xl mx-auto">
-              Join the AI Revolution with{" "}
+              Transform Your Research with{" "}
               <span className="relative">
-                <span>Sphereal</span>
+                <span>QuantumQuill</span>
                 <span
                   className="absolute h-4 w-full left-0 top-full -translate-y-1/2 bg-[linear-gradient(to_right,var(--color-amber-400),var(--color-teal-400),var(--color-violet-400),var(--color-fuchsia-400))]"
                   style={{
@@ -133,12 +140,10 @@ const CallToAction = () => {
               </span>
             </h2>
             <p className="text-center text-xl mt-8 max-w-2xl mx-auto">
-              Experience the transformative power of AI with Sphereal. Boost
-              your productivity and stramline your workflow with our innovative
-              AI chat platform.
+              Join leading researchers using QuantumQuill to analyze, refine, and validate their academic work with unparalleled precision.
             </p>
             <div className="flex justify-center mt-10">
-              <Button variant="secondary">Get Started</Button>
+              <Button variant="secondary" onClick={handleGetStarted}>Get Started Now</Button>
             </div>
           </SectionContent>
         </SectionBorder>

@@ -12,13 +12,13 @@ export const navItems = [
     href: "#features",
   },
   {
-    name: "Pricing",
-    href: "#pricing",
+    name: "How it Works",
+    href: "#how-it-works",
   },
   {
-    name: "Testimonials",
-    href: "#testimonials",
-  },
+    name: "Pricing",
+    href: "#pricing",
+  }
 ];
 
 export const loginItems = [
@@ -29,8 +29,8 @@ export const loginItems = [
   },
   {
     buttonVariant: "primary",
-    name: "Sign Up",
-    href: "#sign-up",
+    name: "Get Started",
+    href: "/chat",
   },
 ] satisfies {
   name: string;
@@ -47,7 +47,7 @@ const Header = () => {
           <div className="h-18 lg:h-20 flex items-center justify-between">
             <div className="flex gap-4 items-center">
               <Logo />
-              <p className="text-2xl font-extrabold">Sphereal.ai</p>
+              <p className="text-2xl font-extrabold">QuantumQuill</p>
             </div>
             <div className="h-full hidden lg:block">
               <nav className="h-full">
