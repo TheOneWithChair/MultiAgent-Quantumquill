@@ -74,7 +74,7 @@ const Footer = () => {
             ))}
           </div>
           <p className="text-gray-500 text-sm">
-            &copy; 2024 QuantumQuill Research Assistant, all rights reserved.
+            &copy; 2025 QuantumQuill Research Assistant, all rights reserved.
           </p>
         </div>
       </div>
