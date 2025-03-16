@@ -106,11 +106,16 @@ const Hero = () => {
                     <CenteredCircle className="size-[1350px]" />
                   </div>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white-100 text-center leading-tight">
+                <motion.h1 
+                  className="text-4xl md:text-5xl lg:text-6xl font-semibold text-white-100 text-center leading-tight"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                >
                   Transform Research with{" "}
                   <span className="relative">
                     <span>QuantumQuill</span>
-                    <span
+                    <motion.span
                       className="absolute h-4 w-full left-0 top-full -translate-y-1/2 bg-[linear-gradient(to_right,var(--color-amber-400),var(--color-teal-400),var(--color-violet-400),var(--color-fuchsia-400))]"
                       style={{
                         maskImage: `url(${underlineImg.src})`,
@@ -118,13 +123,26 @@ const Hero = () => {
                         maskPosition: "center",
                         maskRepeat: "no-repeat",
                       }}
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 0.8, delay: 0.4 }}
                     />
                   </span>
-                </h1>
-                <p className="text-center text-lg md:text-xl mt-6 max-w-3xl mx-auto">
+                </motion.h1>
+                <motion.p 
+                  className="text-center text-lg md:text-xl mt-6 max-w-3xl mx-auto"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                >
                   Experience the power of Multi-Agent AI Research Assistant. Our collaborative AI agents work in harmony to summarize, refine, and validate your research content with unparalleled precision.
-                </p>
-                <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-12">
+                </motion.p>
+                <motion.div 
+                  className="flex flex-col md:flex-row items-center justify-center gap-4 mt-12"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                >
                   <Button 
                     variant="secondary" 
                     onClick={handleStartChat}
@@ -139,7 +157,7 @@ const Hero = () => {
                   >
                     Learn More
                   </Button>
-                </div>
+                </motion.div>
                 <div className="relative isolate max-w-5xl mx-auto">
                   <div className="absolute left-1/2 top-0">
                     <motion.div
