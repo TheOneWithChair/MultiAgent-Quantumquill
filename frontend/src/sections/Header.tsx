@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import CenteredCircle from "@/components/CenteredCircle";
-import Button, { ButtonProps } from "@/components/Button";
+import Button from "@/components/Button";
 import { twMerge } from "tailwind-merge";
 import Logo from "@/components/Logo";
 
@@ -18,36 +19,44 @@ export const navItems = [
   {
     name: "Pricing",
     href: "#pricing",
+  },
+  {
+    name: "Testimonials",
+    href: "#testimonials",
   }
 ];
 
-export const loginItems = [
-  {
-    buttonVariant: "tertiary",
-    name: "Login",
-    href: "#login",
-  },
-  {
-    buttonVariant: "primary",
-    name: "Get Started",
-    href: "/chat",
-  },
-] satisfies {
-  name: string;
-  href: string;
-  buttonVariant: ButtonProps["variant"];
-}[];
-
 const Header = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const router = useRouter();
+
+  // Add scroll event listener to apply background when scrolled
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
-      <header className="border-b border-[var(--color-border)] relative z-40">
+      <header className={twMerge(
+        "fixed top-0 left-0 w-full border-b border-[var(--color-border)] z-40 transition-all duration-300",
+        isScrolled ? "bg-gray-900/90 backdrop-blur-md" : "bg-transparent"
+      )}>
         <div className="container">
           <div className="h-18 lg:h-20 flex items-center justify-between">
             <div className="flex gap-4 items-center">
               <Logo />
-              <p className="text-2xl font-extrabold">QuantumQuill</p>
+              <button
+                onClick={() => router.push('/')}
+                className="text-2xl font-extrabold cursor-pointer hover:text-[#fffafa] transition-colors"
+              >
+                QuantumQuill
+              </button>
             </div>
             <div className="h-full hidden lg:block">
               <nav className="h-full">
@@ -55,7 +64,7 @@ const Header = () => {
                   <Link
                     key={name}
                     href={href}
-                    className="h-full px-12 relative font-bold text-xs tracking-widest text-gray-400 uppercase hover:text-[#fffafa] transition duration-500 inline-flex items-center before:content-[''] before:absolute before:bottom-0 before:h-2 before:w-px before:bg-gray-200/20 before:left-0 after:absolute after:bottom-0 after:h-2 after:w-px after:bg-gray-200/20 after:right-0"
+                    className="h-full px-6 sm:px-8 md:px-12 relative font-bold text-xs tracking-widest text-gray-400 uppercase hover:text-[#fffafa] transition duration-500 inline-flex items-center before:content-[''] before:absolute before:bottom-0 before:h-2 before:w-px before:bg-gray-200/20 before:left-0 after:absolute after:bottom-0 after:h-2 after:w-px after:bg-gray-200/20 after:right-0"
                     onClick={(e) => {
                       e.preventDefault();
                       const element = document.querySelector(href);
@@ -68,12 +77,13 @@ const Header = () => {
                 ))}
               </nav>
             </div>
-            <div className="hidden lg:flex gap-x-4">
-              {loginItems.map(({ buttonVariant, name, href }, i) => (
-                <Link key={i} href={href}>
-                  <Button variant={buttonVariant}>{name}</Button>
-                </Link>
-              ))}
+            <div className="hidden lg:flex">
+              <Button 
+                variant="primary"
+                onClick={() => router.push('/chat')}
+              >
+                Get Started
+              </Button>
             </div>
             <div className="flex items-center lg:hidden">
               <button
@@ -135,13 +145,14 @@ const Header = () => {
                   {name}
                 </Link>
               ))}
-              {loginItems.map(({ name, href, buttonVariant }, i) => (
-                <Link key={i} href={href} className="w-full max-w-xs">
-                  <Button block variant={buttonVariant}>
-                    {name}
-                  </Button>
-                </Link>
-              ))}
+              <Button 
+                block 
+                variant="primary" 
+                className="w-full max-w-xs mt-4"
+                onClick={() => router.push('/chat')}
+              >
+                Get Started
+              </Button>
             </nav>
           </div>
         </div>

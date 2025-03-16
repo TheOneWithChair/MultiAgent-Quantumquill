@@ -82,7 +82,7 @@ const Hero = () => {
 
   return (
     <>
-      <Header />
+     
       <main>
         <section ref={sectionRef} className="pt-24 pb-16">
           <div className="container">
