@@ -14,8 +14,8 @@ const spaceGroteskFont = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "AI SaaS Landing Page",
-  description: "Created by Frontend Tribe",
+  title: "QuantumQuill",
+  description: "Multi-agent Research Assistant",
 };
 
 export default function RootLayout({

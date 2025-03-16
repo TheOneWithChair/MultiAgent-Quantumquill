@@ -81,11 +81,11 @@ app.post('/api/task', async (req, res) => {
         mainResult = await processWithGroq([
           {
             role: "system",
-            content: "You are a medical professional tasked with summarizing complex medical texts. Provide clear, accurate, and concise summaries while maintaining all important medical information."
+            content: "You are an expert at summarizing complex texts. Provide clear, accurate, and concise summaries while maintaining all important information."
           },
           {
             role: "user",
-            content: `Please summarize the following medical text:\n\n${text}`
+            content: `Please summarize the following text:\n\n${text}`
           }
         ]);
 
@@ -93,11 +93,11 @@ app.post('/api/task', async (req, res) => {
         refinementResult = await processWithGroq([
           {
             role: "system",
-            content: "You are an expert editor who refines and enhances content for clarity, coherence, and quality. Focus on improving medical summaries while maintaining accuracy."
+            content: "You are an expert editor who refines and enhances content for clarity, coherence, and quality."
           },
           {
             role: "user",
-            content: `Please refine the following medical summary to improve its clarity, coherence, and overall quality:\n\n${mainResult}\n\nRefined Summary:`
+            content: `Please refine the following summary to improve its clarity, coherence, and overall quality:\n\n${mainResult}\n\nRefined Summary:`
           }
         ]);
 
@@ -105,7 +105,7 @@ app.post('/api/task', async (req, res) => {
         validationResult = await processWithGroq([
           {
             role: "system",
-            content: "You are an AI assistant that validates summaries of medical texts for accuracy, completeness, and conciseness."
+            content: "You are an expert at validating summaries for accuracy, completeness, and conciseness."
           },
           {
             role: "user",
@@ -134,11 +134,11 @@ ${refinementResult}
         mainResult = await processWithGroq([
           {
             role: "system",
-            content: "You are a scientific writer specializing in research articles. Write clear, well-structured academic content."
+            content: "You are a professional writer specializing in research articles and content. Write clear, well-structured content on any topic."
           },
           {
             role: "user",
-            content: `Write a research article based on the following topic and outline:\n\n${text}`
+            content: `Write a comprehensive article based on the following topic and outline:\n\n${text}`
           }
         ]);
 
@@ -146,11 +146,11 @@ ${refinementResult}
         refinementResult = await processWithGroq([
           {
             role: "system",
-            content: "You are an expert editor who refines and enhances research articles for clarity, coherence, and academic quality."
+            content: "You are an expert editor who refines and enhances articles for clarity, coherence, and quality."
           },
           {
             role: "user",
-            content: `Please refine the following research article draft to improve its language, coherence, and overall quality:\n\n${mainResult}\n\nRefined Article:`
+            content: `Please refine the following article draft to improve its language, coherence, and overall quality:\n\n${mainResult}\n\nRefined Article:`
           }
         ]);
 
@@ -158,11 +158,11 @@ ${refinementResult}
         validationResult = await processWithGroq([
           {
             role: "system",
-            content: "You are an academic peer reviewer. Validate research articles for academic quality, methodology, and clarity."
+            content: "You are an expert content reviewer. Validate articles for quality, structure, and clarity."
           },
           {
             role: "user",
-            content: `Review this research article for academic quality, methodology, and clarity. Provide structured feedback:
+            content: `Review this article for quality, structure, and clarity. Provide structured feedback:
 
 **Original Topic/Outline:**
 ${text}
@@ -173,7 +173,7 @@ ${mainResult}
 **Refined Article:**
 ${refinementResult}
 
-**Peer Review Report:**`
+**Review Report:**`
           }
         ]);
         break;
@@ -182,11 +182,11 @@ ${refinementResult}
         mainResult = await processWithGroq([
           {
             role: "system",
-            content: "You are a healthcare data privacy expert. Remove all Protected Health Information (PHI) while maintaining medical relevance."
+            content: "You are a data privacy expert. Remove all sensitive and personally identifiable information while maintaining content relevance."
           },
           {
             role: "user",
-            content: `Sanitize the following medical data by removing all PHI:\n\n${text}`
+            content: `Sanitize the following data by removing all personally identifiable information:\n\n${text}`
           }
         ]);
 
@@ -194,11 +194,11 @@ ${refinementResult}
         refinementResult = await processWithGroq([
           {
             role: "system",
-            content: "You are an expert editor who refines and enhances sanitized medical data. Improve clarity while ensuring all PHI remains removed."
+            content: "You are an expert editor who refines and enhances sanitized content. Improve clarity while ensuring all sensitive information remains removed."
           },
           {
             role: "user",
-            content: `Please refine the following sanitized medical data to improve its clarity and readability while maintaining PHI removal:\n\n${mainResult}\n\nRefined Sanitized Data:`
+            content: `Please refine the following sanitized data to improve its clarity and readability while maintaining privacy protection:\n\n${mainResult}\n\nRefined Sanitized Data:`
           }
         ]);
 
@@ -206,11 +206,11 @@ ${refinementResult}
         validationResult = await processWithGroq([
           {
             role: "system",
-            content: "You are a HIPAA compliance officer. Verify that all PHI has been properly removed from medical data."
+            content: "You are a data privacy compliance officer. Verify that all sensitive information has been properly removed from the data."
           },
           {
             role: "user",
-            content: `Verify that all PHI has been properly removed from this sanitized text. Check for any remaining identifiable information:
+            content: `Verify that all sensitive information has been properly removed from this sanitized text. Check for any remaining identifiable information:
 
 **Original Text:**
 ${text}
@@ -221,7 +221,7 @@ ${mainResult}
 **Refined Sanitized Text:**
 ${refinementResult}
 
-**HIPAA Compliance Report:**`
+**Privacy Compliance Report:**`
           }
         ]);
         break;
@@ -253,4 +253,4 @@ app.get('/health', (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
   console.log(`GROQ_API_KEY ${process.env.GROQ_API_KEY ? 'is' : 'is NOT'} set`);
-}); 
+});

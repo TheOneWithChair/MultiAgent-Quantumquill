@@ -50,7 +50,7 @@ const Header = () => {
         <div className="container">
           <div className="h-18 lg:h-20 flex items-center justify-between">
             <div className="flex gap-4 items-center">
-              <Logo />
+              
               <button
                 onClick={() => router.push('/')}
                 className="text-2xl font-extrabold cursor-pointer hover:text-[#fffafa] transition-colors"
