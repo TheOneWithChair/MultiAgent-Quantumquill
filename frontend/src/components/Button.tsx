@@ -26,6 +26,7 @@ const classes = cva(
         primary: "border-gradient",
         secondary: "bg-gray-100 text-gray-950",
         tertiary: "bg-gray-800 text-gray-200",
+        outline: "bg-transparent border border-gray-400 text-gray-100 hover:border-gray-200",
       },
     },
     defaultVariants: {
