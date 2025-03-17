@@ -17,7 +17,7 @@ import {
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import Header from "@/components/Header";
+// Removed unused Header import
 
 export const useMousePosition = () => {
   const [innerWidth, setInnerWidth] = useState(1);
@@ -73,8 +73,7 @@ const Hero = () => {
   const TranslateMediumY = useTransform(springY, [0, 1], ["-50%", "50%"]);
   const TranslateSmallX = useTransform(springX, [0, 1], ["-200%", "200%"]);
   const TranslateSmallY = useTransform(springY, [0, 1], ["-200%", "200%"]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [chatResponse, setChatResponse] = useState("");
+  // Removed unused state variables
   
   const handleStartChat = () => {
     router.push('/chat');
@@ -230,7 +229,7 @@ const Hero = () => {
                       }}
                     >
                       <p>
-                        <strong>QuantumQuill: </strong>I've analyzed, refined, and validated the research content for optimal accuracy.
+                        <strong>QuantumQuill: </strong>I&apos;ve analyzed, refined, and validated the research content for optimal accuracy.
                       </p>
                       <p className="text-right text-gray-400 text-sm font-semibold">
                         Just now
@@ -309,8 +308,6 @@ const Hero = () => {
             </div>
           </div>
         </section>
-
-        
 
         <section className="py-16 bg-gradient-to-r from-violet-900/50 to-fuchsia-900/50">
           <div className="container">

@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import CenteredCircle from "@/components/CenteredCircle";
 import Button from "@/components/Button";
 import { twMerge } from "tailwind-merge";
-import Logo from "@/components/Logo";
+// Removed unused Logo import
 
 export const navItems = [
   {
