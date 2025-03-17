@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import { ReactNode, useState, useEffect } from "react";
 
+// Update the type definition to match the actual variants in cva
 export type ButtonProps = {
   variant?: "primary" | "secondary" | "tertiary" | "outline";
   children: ReactNode;
@@ -26,7 +27,8 @@ const classes = cva(
         primary: "border-gradient",
         secondary: "bg-gray-100 text-gray-950",
         tertiary: "bg-gray-800 text-gray-200",
-        outline: "bg-transparent border border-gray-400 text-gray-100 hover:border-gray-200",
+        // Add outline variant here
+        outline: "", // We'll handle outline styling separately
       },
     },
     defaultVariants: {
@@ -43,7 +45,10 @@ const Button = ({
   block,
   ...otherProps
 }: ButtonProps) => {
-  const buttonClasses = classes({ variant, className, block });
+  // Add outline class directly if variant is outline
+  const outlineClass = variant === "outline" ? "bg-transparent border border-gray-400 text-gray-100 hover:border-gray-200" : "";
+  const combinedClassName = `${classes({ variant, className, block })} ${outlineClass}`;
+  
   const [isHovered, setIsHovered] = useState(false);
   const angle = useMotionValue(45);
   const background = useMotionTemplate`linear-gradient( var(--color-gray-950), var(--color-gray-950)) padding-box,conic-gradient(from ${angle}deg, var(--color-violet-400), var(--color-fuchsia-400), var(--color-amber-400), var(--color-teal-400), var(--color-violet-400)) border-box`;
@@ -63,7 +68,7 @@ const Button = ({
     <motion.button
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={buttonClasses}
+      className={combinedClassName}
       {...otherProps}
       style={
         variant === "primary"
