@@ -17,10 +17,12 @@ const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
 
+// Fixed CORS configuration - specifically for your frontend domain
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type']
+  origin: 'https://quantumquill-ai.vercel.app',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
 
 app.use(express.json());
